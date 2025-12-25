@@ -1,8 +1,9 @@
 #![no_std]
 #![cfg_attr(test, feature(alloc_error_handler))]
 extern crate alloc;
-//  (existing code follows)
-rem/Cargo.toml
+use alloc::vec::Vec;
+use p256::ecdsa::{signature::Verifier, VerifyingKey, Signature};
+use sha2::{Digest, Sha256};
 [package]
 name    = "helix-rem"
 version = "0.1.0"
