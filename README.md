@@ -1,9 +1,3 @@
-Here is a comprehensive, enterprise-grade `README.md` formatted for GitHub. It synthesizes the visual data from the slides and the text from your Ethos policy into a coherent technical documentation structure.
-
-You can copy and paste the raw code block below directly into your repository.
-
-***
-
 # HELIX-TTD Framework v4.0
 ### Trusted, Traceable, Deterministic AI Governance
 
@@ -80,7 +74,8 @@ We utilize a **Constitutional Grammar** that acts as a structural template rathe
 ### 2. TPAF (Two-Party Approval Flow)
 *Mandatory Human-in-the-Loop*
 
-For any action classified as "High-Impact" or "Irreversible," the system enforces a strict separation of duties:
+For any action classified as "High-Impact" or "Irreversible," the system enforces a strict separation of duties.
+*See `blueprints/tpaf_runbook_v1.0.md` for the full operational guide.*
 
 | Role | Responsibility | Access Level |
 | :--- | :--- | :--- |
@@ -107,6 +102,7 @@ Helix-TTD creates an unbroken chain of evidence from the AI output back to the r
 ## 📊 Quality Assurance (QSR)
 
 We utilize the **Quality Score Rubric (QSR v1.4)** for continuous evaluation.
+*See `blueprints/qsr_rubric_v1.4.md` for scoring criteria.*
 
 *   **Weekly Checkpoints:** Tier-0 AI participants must pass weekly QSR tests.
 *   **Risk Flags:** Any detection of hallucination, unauthorized persona adoption, or bias triggers a `Flag & Mitigate` workflow.
@@ -122,12 +118,10 @@ Clone the repository to access the core ethos definitions and TPAF runbooks.
 ```bash
 git clone https://github.com/helix-project/helix-ttd-v4.0.git
 cd helix-ttd-v4.0
-```
-
-### Usage: The Reality Check
+Usage: The Reality Check
 To implement the Reality Check labeling system in your reasoning engine:
-
-```python
+code
+Python
 # Pseudo-code for Reality Check Labeling
 def classify_statement(statement, evidence_base):
     if verify_fact(statement, evidence_base):
@@ -136,33 +130,28 @@ def classify_statement(statement, evidence_base):
         return "[HYPOTHESIS] " + statement
     else:
         return "[SPECULATION] " + statement
-```
-
----
-
-## 📂 Repository Structure
-
-```text
+Usage: Audit Logging
+Use the provided JSON schema to validate logs before writing to the ledger.
+code
+Bash
+# Validate a log entry against the schema
+jsonschema -i logs/entry_001.json templates/audit_block_schema.json
+📂 Repository Structure
+code
+Text
 helix-ttd-v4.0/
-├── helix-ttd_core_ethos.md       # The Canonical Constitution (Policy 001)
+├── helix-ttd_core_ethos.md        # The Canonical Constitution (Policy 001)
 ├── blueprints/
-│   ├── tpaf_runbook_v1.0.pdf     # Two-Party Approval Flow documentation
-│   ├── zero_touch_convergence.png # Architecture diagrams
-│   └── qsr_rubric_v1.4.pdf       # Quality Score Rubric
+│   ├── tpaf_runbook_v1.0.md       # TPAF Operational Guide (Markdown)
+│   └── qsr_rubric_v1.4.md         # Quality Score Rubric (Markdown)
 ├── templates/
-│   ├── compliance_checklist.json # Operational checklist for Approvers
-│   └── audit_block_schema.json   # JSON schema for immutable logs
-└── README.md                     # This file
-```
-
----
-
-## 🤝 The Commonwealth
-
-Helix-TTD is built for those who build infrastructure while others sleep. It is the grammar of the **Reef** and the **Ridge**.
-
-**Maintainer:** Helix AI Innovations Inc. / 17246102 CANADA INC.
-**Ethos:** Transparency, Cooperation, Kindness.
-
-*✧ // HELIX // TTD*
-```
+│   ├── compliance_checklist.json  # Operational checklist for Approvers
+│   └── audit_block_schema.json    # JSON schema for immutable logs
+└── README.md                      # This file
+🤝 The Commonwealth
+Helix-TTD is built for those who build infrastructure while others sleep. It is the grammar of the Reef and the Ridge.
+Maintainer: Helix AI Innovations Inc. / 17246102 CANADA INC.
+Ethos: Transparency, Cooperation, Kindness.
+✧ // HELIX // TTD
+code
+Code
