@@ -35,10 +35,12 @@ jobs:
             rem/target
           key: ${{ runner.os }}-cargo-${{ hashFiles('rem/Cargo.lock') }}
 
-      - name: Build staticlib (deterministic)
+      - name: Build staticlib (deterministic + backtrace)
         working-directory: rem
+        env:
+          RUST_BACKTRACE: 1
         run: |
-          cargo build --release --target x86_64-unknown-linux-musl
+          cargo build --release --target x86_64-unknown-linux-musl --verbose
           sha256sum target/x86_64-unknown-linux-musl/release/libhelix_rem.a > rem.sha256
 
       - name: Upload artefact + checksum
@@ -48,7 +50,6 @@ jobs:
           path: |
             rem/target/x86_64-unknown-linux-musl/release/libhelix_rem.a
             rem/rem.sha256
-
   prove:
     name: K-framework proof
     runs-on: ubuntu-latest
