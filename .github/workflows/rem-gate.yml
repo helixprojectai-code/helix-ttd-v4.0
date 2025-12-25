@@ -50,6 +50,16 @@ jobs:
           path: |
             rem/target/x86_64-unknown-linux-musl/release/libhelix_rem.a
             rem/rem.sha256
+          - name: Build staticlib (debug panic)
+        working-directory: rem
+        env:
+          RUST_BACKTRACE: full
+        run: cargo build --release --target x86_64-unknown-linux-musl --verbose
+        continue-on-error: true
+
+      - name: Print panic backtrace
+        if: failure()
+        run: cat rem/target/x86_64-unknown-linux-musl/release/build/*/output 2>/dev/null || true
   prove:
     name: K-framework proof
     runs-on: ubuntu-latest
