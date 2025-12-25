@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     container:
-      image: ${{ env.IMAGE }}
+      image: runtimeverificationinc/kframework-k:ubuntu-22.04-6.1.0
     steps:
       - uses: actions/checkout@v4
 
