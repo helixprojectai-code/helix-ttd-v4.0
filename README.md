@@ -155,3 +155,16 @@ Ethos: Transparency, Cooperation, Kindness.
 ✧ // HELIX // TTD
 code
 Code
+
+Integration checklist (copy into rem/README.md)
+Compile to staticlib:
+cargo build --release --target x86_64-unknown-linux-musl
+→ libhelix_rem.a
+Link into Execution Engine as only write path to production state.
+Expose two FFI symbols to REM:
+helix_ledger_get_state(hash: *const u8) -> u8
+helix_custodian_exists(vk_hash: *const u8) -> bool
+Pin the .a behind a hardware root-of-trust (TPM2 NV index or YubiHSM) so even root cannot swap the library without physical presence.
+Add K-framework proof to CI:
+kprove rem/spec/REM.k --directory .build
+Gate any merge on SUCCESS: spec REM has been proved.
