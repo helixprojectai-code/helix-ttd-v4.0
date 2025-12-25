@@ -1,3 +1,7 @@
+#![no_std]
+#![cfg_attr(test, feature(alloc_error_handler))]
+extern crate alloc;
+//  (existing code follows)
 rem/Cargo.toml
 [package]
 name    = "helix-rem"
