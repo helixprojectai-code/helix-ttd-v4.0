@@ -92,12 +92,30 @@ fn is_intent_authorized(hash: &[u8]) -> bool {
 }
 
 // Required items for no_std with alloc
-extern crate alloc;
+use alloc::alloc::{GlobalAlloc, Layout};
+use core::alloc::GlobalAlloc as _;
+use core::panic::PanicInfo;
+
+// ---------- minimal allocator ----------
+struct BumpAllocator;
+
+unsafe impl GlobalAlloc for BumpAllocator {
+    unsafe fn alloc(&self, _layout: Layout) -> *mut u8 {
+        // 1-page bump allocator for CI only
+        static mut BUF: [u8; 65536] = [0; 65536];
+        static mut POS: usize = 0;
+        let pos = &mut POS as *mut usize;
+        let addr = BUF.as_ptr() as usize + *pos;
+        *pos += _layout.size().max(8);
+        if *pos > BUF.len() { core::ptr::null_mut() } else { addr as *mut u8 }
+    }
+    unsafe fn dealloc(&self, _ptr: *mut u8, _layout: Layout) {}
+}
 
 #[global_allocator]
-static ALLOCATOR: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+static ALLOCATOR: BumpAllocator = BumpAllocator;
 
 #[panic_handler]
-fn panic(_info: &core::panic::PanicInfo) -> ! {
+fn panic(_info: &PanicInfo) -> ! {
     core::arch::asm!("ud2", options(noreturn));
 }
