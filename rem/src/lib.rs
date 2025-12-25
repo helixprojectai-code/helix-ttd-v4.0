@@ -2,24 +2,6 @@
 #![cfg_attr(test, feature(alloc_error_handler))]
 extern crate alloc;
 use alloc::vec::Vec;
-
-use p256::ecdsa::{signature::Verifier, VerifyingKey, Signature};
-use sha2::{Digest, Sha256};
-[package]
-name    = "helix-rem"
-version = "0.1.0"
-edition = "2021"
-[dependencies]
-p256     = { version = "0.13", default-features = false, features = ["ecdsa"] }
-sha2     = { version = "0.10", default-features = false }
-serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
-[lib]
-crate-type = ["staticlib", "rlib"]
-rem/src/lib.rs
-#![no_std]
-#![deny(unsafe_code)]
-extern crate alloc;
-use alloc::vec::Vec;
 use p256::ecdsa::{signature::Verifier, VerifyingKey, Signature};
 use sha2::{Digest, Sha256};
 /// Single error type — everything else is a panic (safe failure).
