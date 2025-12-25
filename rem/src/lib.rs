@@ -61,7 +61,8 @@ pub extern "C" fn exec_if_authorized(
 
     // --- 4. Success: emit immutable audit token ---
     let mut approver_id = [0u8; 32];
-    approver_id.copy_from_slice(&sha256(vk.to_sec1_bytes().as_ref())[..32]);
+    
+    approver_id.copy_from_slice(&sha256(&vk.to_encoded_point(false).as_bytes())[..32]);
 
     Ok(AuditToken {
         intent_hash: hash.try_into().unwrap(),
