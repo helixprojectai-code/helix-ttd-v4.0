@@ -4,7 +4,6 @@ You can copy and paste the raw code block below directly into your repository.
 
 ***
 
-```
 # HELIX-TTD Framework v4.0
 ### Trusted, Traceable, Deterministic AI Governance
 
