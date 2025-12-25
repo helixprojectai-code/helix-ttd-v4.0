@@ -1,0 +1,56 @@
+{
+  "template_id": "HELIX-TPL-CHECKLIST-001",
+  "version": "1.0",
+  "title": "TPAF Approver Compliance Checklist",
+  "description": "Standard validation schema for high-impact action approval.",
+  "items": [
+    {
+      "id": "CHK_01",
+      "category": "Purpose Limitation",
+      "question": "Does the drafted intent strictly match the stated business purpose?",
+      "required": true
+    },
+    {
+      "id": "CHK_02",
+      "category": "Data Minimization",
+      "question": "Is the data usage restricted to the absolute minimum necessary?",
+      "required": true
+    },
+    {
+      "id": "CHK_03",
+      "category": "Consent Verification",
+      "question": "Is there verifiable proof of explicit consent for all PII involved?",
+      "required": true
+    },
+    {
+      "id": "CHK_04",
+      "category": "Regulatory Mapping",
+      "question": "Does this action comply with relevant regulations (PIPEDA/GDPR/EU-AI-ACT)?",
+      "required": true
+    },
+    {
+      "id": "CHK_05",
+      "category": "Risk Assessment",
+      "question": "Has the risk severity been rated and deemed acceptable?",
+      "required": true
+    },
+    {
+      "id": "CHK_06",
+      "category": "Retention Policy",
+      "question": "Does the data retention period align with policy limits?",
+      "required": true
+    },
+    {
+      "id": "CHK_07",
+      "category": "Security Review",
+      "question": "Is the execution path free of known security vulnerabilities?",
+      "required": true
+    },
+    {
+      "id": "CHK_08",
+      "category": "Audit Trail",
+      "question": "Will this action generate a complete, immutable log entry?",
+      "required": true
+    }
+  ]
+}
