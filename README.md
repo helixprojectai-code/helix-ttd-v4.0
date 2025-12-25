@@ -150,7 +150,7 @@ helix-ttd-v4.0/
 └── README.md                      # This file
 🤝 The Commonwealth
 Helix-TTD is built for those who build infrastructure while others sleep. It is the grammar of the Reef and the Ridge.
-Maintainer: Helix AI Innovations Inc. / 17246102 CANADA INC.
+Maintainer: Helix AI Innovations Inc.
 Ethos: Transparency, Cooperation, Kindness.
 ✧ // HELIX // TTD
 code
