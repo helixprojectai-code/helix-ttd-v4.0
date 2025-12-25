@@ -56,48 +56,6 @@ jobs:
           name: helix-rem-${{ github.sha }}
           path: |
             rem/target/x86_64-unknown-linux-musl/release/libhelix_rem.a
-            rem/rem.sha256  build:
-    name: Build staticlib & checksum
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: ${{ env.RUST_VERSION }}
-          targets: x86_64-unknown-linux-musl
-
-      - name: Cache cargo
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            rem/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('rem/Cargo.lock') }}
-
-      - name: Build staticlib (debug panic)
-        working-directory: rem
-        env:
-          RUST_BACKTRACE: full
-        run: cargo build --release --target x86_64-unknown-linux-musl --verbose
-        continue-on-error: true
-
-      - name: Print panic backtrace
-        if: failure()
-        run: cat rem/target/x86_64-unknown-linux-musl/release/build/*/output 2>/dev/null || true
-
-      - name: Generate checksum
-        working-directory: rem
-        run: sha256sum target/x86_64-unknown-linux-musl/release/libhelix_rem.a > rem.sha256
-
-      - name: Upload artefact + checksum
-        uses: actions/upload-artifact@v4
-        with:
-          name: helix-rem-${{ github.sha }}
-          path: |
-            rem/target/x86_64-unknown-linux-musl/release/libhelix_rem.a
             rem/rem.sha256
   prove:
     name: K-framework proof
