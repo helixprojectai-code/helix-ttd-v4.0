@@ -1,0 +1,16 @@
+[package]
+name    = "helix-rem"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+p256     = { version = "0.13", default-features = false, features = ["ecdsa"] }
+sha2     = { version = "0.10", default-features = false }
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+
+[profile.release]
+panic = "abort"
+lto   = true
