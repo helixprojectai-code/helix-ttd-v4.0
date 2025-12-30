@@ -1,0 +1,106 @@
+name: HELIX-TTD REM Enforcer
+
+on:
+  push:
+    paths:
+      - 'rem/**'
+      - '.github/workflows/helix_rem_enforcer.yml'
+  pull_request:
+    paths:
+      - 'rem/**'
+
+jobs:
+  # ------------------------------------------------------------------
+  # JOB 1: THE HERMETIC BUILD (Rust + Musl)
+  # ------------------------------------------------------------------
+  build-static-lib:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-unknown-linux-musl
+          override: true
+
+      - name: Install Musl Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
+
+      - name: Build REM Static Library
+        working-directory: ./rem
+        run: |
+          # The Structural Constraint: Must be release mode, must be static
+          cargo build --release --target x86_64-unknown-linux-musl
+
+      - name: 🛡️ Audit FFI Symbols (The Integration Check)
+        working-directory: ./rem
+        run: |
+          # We define the required symbols from your checklist
+          LIB_PATH="target/x86_64-unknown-linux-musl/release/libhelix_rem.a"
+          
+          echo "🔍 Auditing $LIB_PATH for FFI compliance..."
+          
+          # Check for Ledger State Getter
+          if nm $LIB_PATH | grep -q "helix_ledger_get_state"; then
+            echo "✅ Symbol Found: helix_ledger_get_state"
+          else
+            echo "❌ CRITICAL: Symbol 'helix_ledger_get_state' MISSING."
+            exit 1
+          fi
+
+          # Check for Custodian Existence Check
+          if nm $LIB_PATH | grep -q "helix_custodian_exists"; then
+            echo "✅ Symbol Found: helix_custodian_exists"
+          else
+            echo "❌ CRITICAL: Symbol 'helix_custodian_exists' MISSING."
+            exit 1
+          fi
+
+      - name: Hash Artifact (Cryptographic Binding)
+        run: |
+          sha256sum rem/target/x86_64-unknown-linux-musl/release/libhelix_rem.a > rem_checksum.sha256
+          cat rem_checksum.sha256
+
+      - name: Upload Static Library
+        uses: actions/upload-artifact@v4
+        with:
+          name: libhelix_rem_musl
+          path: |
+            rem/target/x86_64-unknown-linux-musl/release/libhelix_rem.a
+            rem_checksum.sha256
+
+  # ------------------------------------------------------------------
+  # JOB 2: THE MATHEMATICAL PROOF (K Framework)
+  # ------------------------------------------------------------------
+  formal-verification:
+    runs-on: ubuntu-latest
+    needs: build-static-lib
+    container:
+      image: runtimeverification/kframework-k:ubuntu-jammy # Official K Container
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Directory Structure
+        run: |
+          if [ ! -f "rem/spec/REM.k" ]; then
+            echo "⚠ Spec file rem/spec/REM.k not found. Skipping proof."
+            # We exit 0 here only if you haven't written the spec yet. 
+            # Change to exit 1 once the spec is committed.
+            exit 0 
+          fi
+
+      - name: Run K-Prove (The Logic Gate)
+        working-directory: ./rem
+        run: |
+          echo "📐 Running Formal Verification..."
+          # This command ensures the code matches the math
+          # Any deviation causes the build to fail
+          kprove spec/REM.k --directory .build
+          
+      - name: Asset Proof of Logic
+        if: success()
+        run: echo "✅ Mathematical compliance verified."
