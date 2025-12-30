@@ -1,7 +1,22 @@
 # HELIX-TTD Framework v4.0
 ### Trusted, Traceable, Deterministic AI Governance
 
-![Version](https://img.shields.io/badge/version-v4.0-blue.svg) ![Status](https://img.shields.io/badge/status-active-success.svg) ![License](https://img.shields.io/badge/license-HELIX_COMMONWEALTH-purple.svg) ![Compliance](https://img.shields.io/badge/compliance-AUDIT_READY-green.svg)
+<div align="center">
+
+<!-- TIER 1: LIVE TELEMETRY (The Pulse) -->
+[![REM Enforcer](https://github.com/helixprojectai-code/helix-ttd-v4.0/actions/workflows/helix_rem_enforcer.yml/badge.svg)](https://github.com/helixprojectai-code/helix-ttd-v4.0/actions/workflows/helix_rem_enforcer.yml)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
+<!-- TIER 2: ARCHITECTURE (The Metal) -->
+![Version](https://img.shields.io/badge/Release-v4.0-00e6e6?style=for-the-badge&labelColor=black)
+![Target](https://img.shields.io/badge/Target-x86__64--musl-black?style=for-the-badge&logo=rust&logoColor=white)
+![Verification](https://img.shields.io/badge/Verification-K--Framework-800080?style=for-the-badge)
+
+<!-- TIER 3: GOVERNANCE (The Ethos) -->
+![Compliance](https://img.shields.io/badge/Compliance-AUDIT__READY-success?style=for-the-badge&logo=shield&logoColor=white)
+![Status](https://img.shields.io/badge/Status-SOVEREIGN-008080?style=for-the-badge)
+
+</div>
 
 **HELIX-TTD** is a structural governance framework designed to constrain frontier AI models into stateless, advisory-only, and audit-ready reasoning engines. Unlike traditional safety methods (RLHF) which attempt to train behavior, Helix-TTD enforces ethics through **structural constraints**, **cryptographic traceability**, and **mandatory human custody**.
 
