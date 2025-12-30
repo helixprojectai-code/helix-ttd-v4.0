@@ -1,12 +1,14 @@
 [package]
-name = "helix_rem"  # Use underscores to match the filename exactly
+name = "helix_rem"
 version = "0.1.0"
 edition = "2021"
 
-# CRITICAL SECTION FOR MUSL/STATIC BUILDS
+# --- THE FIX STARTS HERE ---
 [lib]
-name = "helix_rem"           # Output will be libhelix_rem.a
-crate-type = ["staticlib"]   # Forces generation of .a file
+# This tells Rust to output 'libhelix_rem.a' for static linking
+# instead of the default .rlib format
+crate-type = ["staticlib"]
+# ---------------------------
 
 [dependencies]
-# Add any deps here
+# Dependencies go here
