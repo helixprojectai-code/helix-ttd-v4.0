@@ -1,16 +1,12 @@
 [package]
-name    = "helix-rem"
+name = "helix_rem"  # Use underscores to match the filename exactly
 version = "0.1.0"
 edition = "2021"
 
-[dependencies]
-p256     = { version = "0.13", default-features = false, features = ["ecdsa"] }
-sha2     = { version = "0.10", default-features = false }
-serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
-
+# CRITICAL SECTION FOR MUSL/STATIC BUILDS
 [lib]
-crate-type = ["staticlib", "rlib"]
+name = "helix_rem"           # Output will be libhelix_rem.a
+crate-type = ["staticlib"]   # Forces generation of .a file
 
-[profile.release]
-panic = "abort"
-lto   = true
+[dependencies]
+# Add any deps here
